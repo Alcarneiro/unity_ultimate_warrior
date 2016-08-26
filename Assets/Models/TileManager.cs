@@ -15,7 +15,7 @@ namespace Assets
     public class TileManager : MonoBehaviour
     {
         private readonly string _mapzenUrl = "https://vector.mapzen.com/osm/{0}/{1}/{2}/{3}.{4}?api_key={5}";
-		[SerializeField] private string _key = " vector-tiles-SspBZQu"; //try getting your own key if this doesn't work
+		[SerializeField] private string _key;
         [SerializeField] private string _mapzenLayers = "buildings,roads,water";
         private readonly string _mapzenFormat = "json";
 
@@ -23,9 +23,9 @@ namespace Assets
         protected Transform TileHost;
 
         protected bool LoadImages;
-        protected int Zoom = 16; //detail level of TMS system
-        protected float TileSize = 100;
-        protected int Range = 1;
+        protected int Zoom;
+        protected float TileSize;
+        protected int Range;
         protected Dictionary<Vector2, Tile> Tiles; //will use this later on
         protected Vector2 CenterTms; //tms tile coordinate
         protected Vector2 CenterInMercator; //this is like distance (meters) in mercator 
@@ -39,6 +39,7 @@ namespace Assets
             TileHost = new GameObject("Tiles").transform;
             TileHost.SetParent(transform, false);
 
+			_key = settings.Key;
             Zoom = settings.DetailLevel;
             TileSize = settings.TileSize;
             Tiles = new Dictionary<Vector2, Tile>();
